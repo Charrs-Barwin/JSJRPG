@@ -35,6 +35,7 @@ class Game {
         units.forEach(unit => {
             unit.tick()
             if (unit.cp>=unit.ct){
+                createjs.Sound.play("turn_chime");
                 let targets = unit.isPartyMember ? monsters : party
                 targets = targets.filter(t=>t.alive)
                 if(!targets.length){

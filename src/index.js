@@ -22,7 +22,8 @@ let by_min_attr = (attr) => {
         return targets.min(attr)
     }
 }
-
+// createjs.Sound.registerSound("assets\audio\sfx\512481__philraco-indie__pause-piano-sound.wav", "turn_chime");
+// createjs.Sound.play("turn_chime");
 // debugger
 
 let d1 = document.getElementById("dl1");
@@ -49,27 +50,22 @@ function draw(){}
 // window.onload = init;
 
 function init(){
-
+    
     canvas = document.getElementById('canvas');
-    context = canvas.getContext('2d');  // was erroring
+    context = canvas.getContext('2d');
 
     // this.stage = new createjs.Stage("canvas")
-    // console.log(this.stage);
-    // var circle = new createjs.Shape();
-    // circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 100);
-    // circle.x = 100;
-    // circle.y = 100;
+    // this.loadImage();
+    // createjs.Sound.registerSound("assets\audio\sfx\512481__philraco-indie__pause-piano-sound.wav", "turn_chime");
+
+    var circle = new createjs.Shape();
+    circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 100);
+    circle.x = 100;
+    circle.y = 100;
     // stage.addChild(circle);
 
-    // createjs.Tween.get(circle, { loop: true })
-    //  .to({ x: 400 }, 1000, createjs.Ease.getPowInOut(4))
-    //  .to({ alpha: 0, y: 175 }, 500, createjs.Ease.getPowInOut(2))
-    //  .to({ alpha: 0, y: 225 }, 100)
-    //  .to({ alpha: 1, y: 200 }, 500, createjs.Ease.getPowInOut(2))
-    //  .to({ x: 100 }, 800, createjs.Ease.getPowInOut(2));
-    
-    // createjs.Ticker.setFPS(60);
-    // createjs.Ticker.addEventListener("tick", stage);
+
+    // createjs.Sound.play("turn_chime");
     // stage.update();
     // debugger
 
@@ -80,11 +76,31 @@ function init(){
 
     context.drawImage(background,0,0,1200,720);
 
-    // context.fillStyle = 'brown';
-    // context.fillRect(240,200,180,150);
+    // // context.fillStyle = 'brown';
+    // // context.fillRect(240,200,180,150);
     
     context.drawImage(thf,750,260,84,114);  // original dimensions: 167,228
     context.drawImage(boar,240,260,200,132);  // original dimensions: 344,219
     
+    // createjs.Tween.get(circle, { loop: true })
+    //  .to({ x: 400 }, 1000, createjs.Ease.getPowInOut(4))
+    //  .to({ alpha: 0, y: 175 }, 500, createjs.Ease.getPowInOut(2))
+    //  .to({ alpha: 0, y: 225 }, 100)
+    //  .to({ alpha: 1, y: 200 }, 500, createjs.Ease.getPowInOut(2))
+    //  .to({ x: 100 }, 800, createjs.Ease.getPowInOut(2));
+    
+    // createjs.Ticker.setFPS(60);
+    // createjs.Ticker.addEventListener("tick", stage);
+    
     gm.play()
+}
+function loadImage() {
+    // debugger
+    var preload = new createjs.LoadQueue();
+    preload.addEventListener("fileload", handleFileComplete);
+    preload.loadFile("assets\enemies\porcupine.png");
+}
+function handleFileComplete(event) {
+    document.body.appendChild(event.result);
+    // debugger
 }
