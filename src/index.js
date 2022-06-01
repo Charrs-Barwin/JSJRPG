@@ -58,10 +58,10 @@ function init(){
     // this.loadImage();
     // createjs.Sound.registerSound("assets\audio\sfx\512481__philraco-indie__pause-piano-sound.wav", "turn_chime");
 
-    var circle = new createjs.Shape();
-    circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 100);
-    circle.x = 100;
-    circle.y = 100;
+    // var circle = new createjs.Shape();
+    // circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 100);
+    // circle.x = 100;
+    // circle.y = 100;
     // stage.addChild(circle);
 
 
