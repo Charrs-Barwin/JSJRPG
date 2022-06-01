@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":"AAEA,eACI,YACA,WAGJ,OACI,QACA,wB","sources":["webpack://jsjrpg/./src/index.scss"],"sourcesContent":["// @import \"src\\styles\\styles.css\";\r\n\r\n#canvas,#field{\r\n    height: 100%;\r\n    width: 100%;\r\n}\r\n\r\n#thief{\r\n    scale: 5;\r\n    mix-blend-mode: multiply;\r\n}"],"names":[],"sourceRoot":""}

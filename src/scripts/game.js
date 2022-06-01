@@ -27,7 +27,7 @@ class Game {
     play_stage(enemies){
         console.table(this.party)
         console.table(enemies)
-        // this.party.forEach(pm => pm.set_instructions())
+        this.party.forEach(pm => pm.set_instructions())
         this.battle_loop = setInterval(this.tick,40,this.party,this.monsters);
     }
     tick(party,monsters){
