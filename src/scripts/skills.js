@@ -8,7 +8,8 @@ class Skills {
             'first': (targets) => targets[0],
             'random': (targets) => targets.random(),
             'max_hp': by_max_attr('hp'),
-            'min_hp': by_min_attr('hp')
+            'min_hp': by_min_attr('hp'),
+            'strongest': by_max_attr('str')
         }
         this.conditions = {
             'always': () => true,
