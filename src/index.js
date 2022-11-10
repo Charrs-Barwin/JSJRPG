@@ -22,6 +22,7 @@ let by_min_attr = (attr) => {
         return targets.min(attr)
     }
 }
+var _ = undefined;
 
 let d1 = document.getElementById("dl1");
 let d2 = document.getElementById("dl2");
@@ -39,16 +40,16 @@ var lg = function lg(input) {
     d5.innerHTML = input;
 }
 
-let canvas;
-let ctx;
+var canvas;
+var ctx;
 
-let background = document.getElementById("field");
-let thf = document.getElementById("thief");
-let mage = document.getElementById("red");
-let boar = document.getElementById("boar");
+var background = document.getElementById("field");
+var thf = document.getElementById("thief");
+var mage = document.getElementById("red");
+var boar = document.getElementById("boar");
 var gm = new Game()
 
-function draw(){}
+// function draw(){}
 window.onload = init;
 
 function init(){

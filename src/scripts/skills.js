@@ -31,9 +31,10 @@ class Fire extends Skills {
         
         this.conditions = {
             'always': () => true,
-            'can_cast': (action,_) => this.caster.mp >= action.cost,
-            'frugal': (action,_) => (this.caster.mp-action.cost)/(this.caster.mpp+1) > Math.random(),
-            'high_mp': (action,_) => (this.caster.mp-action.cost)/(this.caster.mpp-action.cost) > Math.random(),
+            'can_cast': (action) => this.caster.mp >= action.cost,
+            'mp_full': () => this.caster.mp === this.caster.mpp,
+            'high_mp': (action) => (this.caster.mp-action.cost)/(this.caster.mpp-action.cost) > Math.random(),
+            'frugal': (action) => (this.caster.mp-action.cost)/(this.caster.mpp+1) > Math.random(),
             'high_trg_hp': (action,targets) => targets[0].hp/targets[0].hpp >= 0.4 && this.caster.mp >= action.cost
         }
     }

@@ -19,14 +19,16 @@ class Game {
         this.party[1].pos = this.p2_pos;
         
         let Formation_1 = [new Boar("Old boar")]
-        let Formation_2 = [new Boar("boar A",[240,260],undefined,9,1,80),new Boar("boar B",[200,400],undefined,9,1,80)]
-        let Formation_3 = [new Boar("Big Boar",[300,320],[300,198],16,2,95),new Boar("boar A",[100,200],undefined,9,1,80),new Boar("boar B",[100,450],undefined,9,1,80)]
+        let Formation_2 = [new Boar("boar A",[240,260],_,9,1,80),new Boar("boar B",[200,400],_,9,1,80)]
+        let Formation_3 = [new Boar("Big Boar",[300,320],[300,198],16,2,95),new Boar("boar A",[100,200],_,9,1,80),new Boar("boar B",[100,450],_,9,1,80)]
 
         this.Formations = [Formation_1,Formation_2,Formation_3]
         this.monsters = this.Formations.shift()
 
         this.units = this.party.concat(this.monsters)
         
+        // this..()
+        prompt("Please open consol to see unit actions\n( ctr + shift + j )\n More to come in the future")
         this.play_stage(this.monsters)
     }
     draw_stage(){
@@ -38,11 +40,11 @@ class Game {
         });
     }
     play_stage(enemies){
+        this.draw_stage()
         console.log("Your Party");
         console.table(this.party)
         console.log("Upcomming battle");
         console.table(enemies)
-        this.draw_stage()
         this.party.forEach(pm => pm.set_instructions())
         this.battle_loop = setInterval(this.tick,40,this.party,this.monsters);
     }
@@ -91,6 +93,7 @@ class Game {
 
             this.monsters = this.Formations.shift()
             this.units = this.party.concat(this.monsters)
+            // this.draw_stage()
             this.play_stage(this.monsters)
         } else {
             lg(" YOU WIN THE GAME! ")
