@@ -22,7 +22,11 @@ let by_min_attr = (attr) => {
         return targets.min(attr)
     }
 }
+
 var _ = undefined;
+var x = 0;
+var y = 1;
+
 
 let d1 = document.getElementById("dl1");
 let d2 = document.getElementById("dl2");
@@ -40,17 +44,22 @@ var lg = function lg(input) {
     d5.innerHTML = input;
 }
 
+
 var canvas;
 var ctx;
 
 var background = document.getElementById("field");
 var thf = document.getElementById("thief");
+var thf_att = document.getElementById("thief_att");
 var mage = document.getElementById("red");
+var mage_att = document.getElementById("red_att");
 var boar = document.getElementById("boar");
 var gm = new Game()
 
 // function draw(){}
 window.onload = init;
+
+// document.addEventListener('keypress', function(e) {console.log(e.key)})
 
 function init(){
     canvas = document.getElementById('canvas');
