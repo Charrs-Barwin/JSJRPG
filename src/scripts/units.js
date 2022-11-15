@@ -11,9 +11,12 @@ class Unit {
         this.tp = 5
         this.name = _name
         this.isPartyMember = pm
-        this.pos = _pos
+        this.start_pos = [..._pos]
+        this.pos = [..._pos]
         this.size = _size
         this.default_frame = boar
+        this.att_frame = boar
+        this.current_frame = boar
         this.alive = true
 
         this.skills = [new Attack(this)]
@@ -21,6 +24,7 @@ class Unit {
 
         this.instructions = []
         
+        this.returntToPosition = this.returntToPosition.bind(this)
     }
     tick(){this.cp += this.tp}
     print_hp() {console.log(this.name+': '+this.hp+'/'+this.hpp);}
@@ -35,7 +39,7 @@ class Unit {
         for(let i=0;i<this.instructions.length;i++) {
             let instruction = this.instructions[i]
             let trg = instruction['targetting'](targets)
-            console.log(instruction);
+            // console.log(instruction);
             // debugger
             if(instruction['conditions'](instruction['action'],[trg])){
                 // console.log(this);
@@ -46,6 +50,12 @@ class Unit {
     }
     ai = (targets) => {
         this.skills.random().cast(targets.random())
+    }
+    returntToPosition(){
+        this.pos = [...this.start_pos]
+        this.current_frame = this.default_frame
+        gm.draw_stage()
+        // debugger
     }
 
     take_dmg(amount=1) {
@@ -59,6 +69,7 @@ class Unit {
     died(){
         lg(this.name+" has died :(");
         this.alive = false
+        // gm.draw_stage()
     }
 
     set_instructions(){
@@ -127,11 +138,13 @@ class Unit {
 class Boar extends Unit {}
 
 class Mage extends Unit {
-    constructor(){
-        super()
-        this.name = "mage"
-        this.size = [135,114]    //[214,248]
+    constructor(pos){
+        super("mage",pos)
+        // this.name = "mage"
+        this.size = [232,114]    //[214,248]
         this.default_frame = mage
+        this.att_frame = mage_att
+        this.current_frame = mage
         this.isPartyMember = true
         this.hpp = 14
         this.hp = this.hpp
@@ -147,11 +160,13 @@ class Mage extends Unit {
 }
 
 class Thief extends Unit {
-    constructor(){
-        super()
-        this.name = "thief"
+    constructor(pos){
+        super("thief",pos)
+        // this.name = "thief"
         this.size = [84,114]    //[167,228]
         this.default_frame = thf
+        this.att_frame = thf_att
+        this.current_frame = thf
         this.isPartyMember = true
         this.hpp = 15
         this.hp = this.hpp

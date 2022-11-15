@@ -15,11 +15,17 @@ class Skills {
             'always': () => true,
         }
     }
-    cast(unit){
-        lg(`${this.caster.name} attacks ${unit.name}.`);
-        unit.take_dmg(this.caster.str);
+    cast(target){
+        lg(`${this.caster.name} attacks ${target.name}.`);
+
+        this.caster.pos[y] = target.pos[y] + target.size[y] - this.caster.size[y]
+        this.caster.pos[x] = target.pos[x] + (this.caster.isPartyMember ? target.size[x] : (-this.caster.size[x]))
+        this.caster.current_frame = this.caster.att_frame
+        gm.draw_stage()
+        setTimeout(this.caster.returntToPosition,350)
+
+        target.take_dmg(this.caster.str);
     }
-    
 }
 
 class Attack extends Skills {}
@@ -44,8 +50,14 @@ class Fire extends Skills {
             return
         }
         this.caster.mp -= this.cost;
-        lg(`${this.caster.name} casts 'Fire on ${unit.name}.`);
+        lg(`${this.caster.name} casts 'Fire' on ${unit.name}.`);
+
+        this.caster.current_frame = this.caster.att_frame
+        gm.draw_stage()
+        setTimeout(this.caster.returntToPosition,350)
+        
         console.log(`Mp: ${this.caster.mp}/${this.caster.mpp}`);
+        
         unit.take_dmg(4);
     }
 }
