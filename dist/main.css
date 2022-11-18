@@ -1,3 +1,32 @@
-#canvas,#field{height:100%;width:100%}#thief{scale:5;mix-blend-mode:multiply}
+/* #canvas{height:100%;width:100%} //shrinks image */
+/* #field{height:100%;width:100%} //no effect */
+
+body {background-color: black;}
+
+#canvas {
+  /* width: 1280px; */
+  /* height: 720px; */
+  border:3px solid red;
+}
+
+#display {
+  display: inline-block;
+  color: white;
+  /* background-color: blue; */
+}
+
+#log {
+  color: white;
+  max-height: 188px;
+
+  overflow-y: auto;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#log::-webkit-scrollbar {
+  display: none;
+}
+
 
 /*# sourceMappingURL=main.css.map*/

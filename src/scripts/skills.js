@@ -15,17 +15,22 @@ class Skills {
             'always': () => true,
         }
     }
-    cast(target){
+    async cast(target){
         lg(`${this.caster.name} attacks ${target.name}.`);
 
         this.caster.pos[y] = target.pos[y] + target.size[y] - this.caster.size[y]
         this.caster.pos[x] = target.pos[x] + (this.caster.isPartyMember ? target.size[x] : (-this.caster.size[x]))
         this.caster.current_frame = this.caster.att_frame
         gm.draw_stage()
-        setTimeout(this.caster.returntToPosition,350)
+        await setDelay(250)
 
         target.take_dmg(this.caster.str);
+        // gm.draw_stage()
+        
+        await setDelay(750)
+        this.caster.returntToPosition()
     }
+
 }
 
 class Attack extends Skills {}
@@ -44,7 +49,7 @@ class Fire extends Skills {
             'high_trg_hp': (action,targets) => targets[0].hp/targets[0].hpp >= 0.4 && this.caster.mp >= action.cost
         }
     }
-    cast(unit){
+    async cast(unit){
         if(this.caster.mp<this.cost){
             lg("NOT ENOUGH MP")
             return
@@ -54,10 +59,13 @@ class Fire extends Skills {
 
         this.caster.current_frame = this.caster.att_frame
         gm.draw_stage()
-        setTimeout(this.caster.returntToPosition,350)
+        ctx.drawImage(fire,unit.pos[x],unit.pos[y],unit.size[x],unit.size[y])
+        await setDelay(250)
         
         console.log(`Mp: ${this.caster.mp}/${this.caster.mpp}`);
-        
         unit.take_dmg(4);
+
+        await setDelay(500)
+        this.caster.returntToPosition()
     }
 }

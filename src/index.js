@@ -27,21 +27,20 @@ var _ = undefined;
 var x = 0;
 var y = 1;
 
+var setDelay = function(delay) {
+    return new Promise(resolve=>{
+        setTimeout(()=>resolve(),delay)
+    })
+}
 
-let d1 = document.getElementById("dl1");
-let d2 = document.getElementById("dl2");
-let d3 = document.getElementById("dl3");
-let d4 = document.getElementById("dl4");
-let d5 = document.getElementById("dl5");
-let log = []
+var action_log = document.getElementById("log");
 var lg = function lg(input) {
     console.log(input);
-    log.push(input)
-    d1.innerHTML = d2.innerHTML
-    d2.innerHTML = d3.innerHTML
-    d3.innerHTML = d4.innerHTML
-    d4.innerHTML = d5.innerHTML
-    d5.innerHTML = input;
+    const line = document.createElement("li")
+    const newContent = document.createTextNode(input);
+    line.appendChild(newContent)
+    action_log.append(line)
+    action_log.scrollTop = action_log.scrollHeight;
 }
 
 
@@ -54,16 +53,23 @@ var thf_att = document.getElementById("thief_att");
 var mage = document.getElementById("red");
 var mage_att = document.getElementById("red_att");
 var boar = document.getElementById("boar");
+var fire = document.getElementById("fire");
 var gm = new Game()
 
 // function draw(){}
 window.onload = init;
 
-// document.addEventListener('keypress', function(e) {console.log(e.key)})
+// document.addEventListener('keypress', function(e) { if (e.key==' ') console.log('SPACE')})
 
 function init(){
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
+    
+    ctx.font = "bold 48px sans-serif";
+    ctx.textAlign = 'center';
+    ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = 'white'
+    ctx.lineWidth = 3;
 
     gm.play()
 }

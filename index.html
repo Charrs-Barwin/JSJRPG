@@ -11,23 +11,32 @@
   </head>
 
   <body> <!-- onload="init();" -->
-    <ul>
-      <li id = "dl1"></li>
-      <li id = "dl2"></li>
-      <li id = "dl3"></li>
-      <li id = "dl4"></li>
-      <li id = "dl5"></li>
-    </ul>
-      <canvas id="canvas" width="1920" height="1080" style="border:1px solid red;">
-        <h1>First Header</h1>
-        <img id="field" src="assets\backgrounds\Battleback_plains_a.png">
-        <img id="thief" src="assets\party\thf\thf.png">
-        <img id="thief_att" src="assets\party\thf\Ganef3.png">
-        <img id="red" src="assets\party\red\Red6.png">
-        <img id="red_att" src="assets\party\red\Red10.png">
-        <img id="boar" src="assets\enemies\porcupine.png">
-        Your browser does not support the HTML5 canvas tag.
+    <br/>
+    <canvas id="canvas" width="1216" height="684">
+      <h1>First Header</h1>
+      <img id="field" src="assets\backgrounds\Battleback_plains_a.png">
+      <img id="thief" src="assets\party\thf\thf.png">
+      <img id="thief_att" src="assets\party\thf\Ganef3.png">
+      <img id="red" src="assets\party\red\Red6.png">
+      <img id="red_att" src="assets\party\red\Red10.png">
+      <img id="boar" src="assets\enemies\porcupine.png">
+      <img id="fire" src="assets/effects/Fire.png">
+      Your browser does not support the HTML5 canvas tag.
     </canvas>
+    <div id="display">
+      <form>
+        <div id="p1">
+          <div class="player-info" id="p1-info" />
+          <ol/ class="instructions" id="p1-instructions" >
+        </div>
+        <div id="p2">
+          <div class="player-info" id="p2-info" />
+          <ol/ class="instructions" id="p2-instructions" >
+        </div>
+      </form>
+      <ol id="log"/>
+    </div>
+
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
     <!-- <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script> -->
     <script src="src\scripts\skills.js"></script>

@@ -28,13 +28,14 @@ class Game {
         this.units = this.party.concat(this.monsters)
         
         // this..()
-        prompt("Please open consol to see unit actions\n( ctr + shift + j )\n More to come in the future")
+        // alert("Please open consol to see unit actions\n( ctr + shift + j )\n More to come in the future")
         this.play_stage(this.monsters)
     }
 
     draw_stage(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(background,0,0,1200,720);
+        ctx.drawImage(background,0,0,canvas.width,canvas.height);
+        // ctx.drawImage(background,0,0,1200,720);
 
         this.units.forEach(unit => {
             if (unit.alive){
@@ -52,67 +53,36 @@ class Game {
         console.log("Upcomming battle");
         console.table(enemies)
 
-        this.party.forEach(pm => pm.set_instructions())
+        this.party.forEach(pm => pm.setInstructions())
+        // this.party.forEach(pm => pm.set_instructions())  /// THIS LINE SETS INSTRUCTIONS
 
         // this.battle_loop = setInterval(this.tick,400,this.party,this.monsters);
         // setInterval(this.draw_stage,16)
-        setTimeout(this.tick,400,this.party,this.monsters);
+        setTimeout(this.tick,20,this.party,this.monsters);
     }
 
-    tick = (party,monsters)=>{
+    tick = async (party,monsters)=>{
         let units = party.concat(monsters).filter(t => t.alive)
-        units.forEach(unit => {
-            unit.tick()
-            if (unit.cp>=unit.ct){
-                // createjs.Sound.play("turn_chime");
-                let targets = unit.isPartyMember ? monsters : party
-                targets = targets.filter(t=>t.alive)
-                if(!targets.length){
-                    return
-                }
-                unit.take_turn(targets)
-                unit.cp = 0
-                this.draw_stage()
-                if (this.check_battle()){
-                    return
-                }
+        units.forEach(unit => unit.tick())
+        units = units.filter(unit=>unit.cp>=unit.ct)
+        while(units.length) {
+            let unit = units[0]
+            // createjs.Sound.play("turn_chime");
+            let targets = unit.isPartyMember ? monsters : party
+            targets = targets.filter(t=>t.alive)
+            if(!targets.length){
+                return
             }
-        });
-        setTimeout(this.tick,400,this.party,this.monsters);
-    }
-
-    gameover(){
-        lg(" GAME OVER !!!");
-        // clearInterval(this.battle_loop)
-        console.log("Your Party");
-        console.table(this.party)
-        console.log("The enemy");
-        console.table(this.monsters)
-    }
-
-    battle_won(){
-        lg(" YOU WON !!!");
-        // clearInterval(this.battle_loop)
-        if (this.Formations.length){
-            this.party.forEach(pm =>{
-                if (pm.hp && pm.hp < pm.hpp){
-                    pm.hp++
-                    console.log(pm.name+" has recovered 1 Hp");
-                }
-                if (pm.mpp && pm.mp < pm.mpp){
-                    pm.mp++
-                    console.log(pm.name+" has recovered 1 Mp");
-                }
-            })
-
-            this.monsters = this.Formations.shift()
-            this.units = this.party.concat(this.monsters)
+            await unit.take_turn(targets)
+            unit.cp = 0
+            units = units.filter(unit=>unit.cp>=unit.ct)
             // this.draw_stage()
-            this.play_stage(this.monsters)
-        } else {
-            lg(" YOU WIN THE GAME! ")
-            lg("     Nice Job      ")
-        }
+            if (this.check_battle()){
+                return
+            }
+            await setDelay(350)
+        };
+        setTimeout(this.tick,40,this.party,this.monsters);
     }
 
     check_battle = ()=>{
@@ -125,5 +95,39 @@ class Game {
         }
     }
     
+    async battle_won(){
+        lg(" YOU WON !!!");
+        if (this.Formations.length){
+            this.postStageRecovery()
+            await setDelay(2500)
+            this.monsters = this.Formations.shift()
+            this.units = this.party.concat(this.monsters)
+            this.play_stage(this.monsters)
+        } else {
+            lg(" YOU WIN THE GAME! ")
+            lg("     Nice Job      ")
+        }
+    }
+
+    postStageRecovery(){
+        this.party.forEach(pm =>{
+            if (pm.hp && pm.hp < pm.hpp){
+                pm.hp++
+                console.log(pm.name+" has recovered 1 Hp");
+            }
+            if (pm.mpp && pm.mp < pm.mpp){
+                pm.mp++
+                console.log(pm.name+" has recovered 1 Mp");
+            }
+        })
+    }
+
+    gameover(){
+        lg(" GAME OVER !!!");
+        console.log("Your Party");
+        console.table(this.party)
+        console.log("The enemy");
+        console.table(this.monsters)
+    }
+
 }
-// export default Game1
